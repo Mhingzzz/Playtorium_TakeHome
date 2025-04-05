@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "PlayToRium\API.csproj", "{54B6FBE2-6AC0-4A4B-BE6B-3BFA74ED9B21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{54B6FBE2-6AC0-4A4B-BE6B-3BFA74ED9B21}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{EF1F4A68-A156-4AE1-A5F6-7A8024A7BAE2}"
 EndProject
