@@ -12,7 +12,8 @@ namespace Application
         services.AddScoped<IDiscountCampaignService, DiscountCampaignService>();
         services.AddScoped<ICustomerService, CustomerService>();
         services.AddScoped<IItemService, ItemService>();
-        // services.AddScoped<ICartService, CartService>();
+        services.AddScoped<ICartService, CartService>();
+        services.AddScoped<ICartItemService, CartItemService>();
         return services;
     }
 

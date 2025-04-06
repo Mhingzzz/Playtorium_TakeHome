@@ -8,10 +8,8 @@ namespace Infrastructure.Repositories
     public class ItemRepository : BaseRepository<Items>, IItemRepository
     {
 
-        private readonly DataContext _dataContext;
         public ItemRepository(DataContext dataContext) : base(dataContext)
         {
-            _dataContext = dataContext;
         }
         public async Task<Items> GetItemById(int id)
         {

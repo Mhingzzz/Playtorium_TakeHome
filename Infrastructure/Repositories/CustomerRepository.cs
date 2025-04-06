@@ -7,10 +7,8 @@ namespace Infrastructure.Repositories
     public class CustomerRepository : BaseRepository<Customers>, ICustomerRepository
     {
 
-        private readonly DataContext _dataContext;
         public CustomerRepository(DataContext dataContext) : base(dataContext)
         {
-            _dataContext = dataContext;
         }
 
         public async Task<Customers> GetCustomerById(int id)
