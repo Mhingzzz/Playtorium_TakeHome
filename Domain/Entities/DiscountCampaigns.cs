@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Text.Json.Serialization;
 
 namespace Domain;
 
@@ -21,5 +20,6 @@ public partial class DiscountCampaigns
 
     public bool? IsActive { get; set; }
 
+    [JsonIgnore]
     public virtual ICollection<AppliedDiscounts> AppliedDiscounts { get; set; } = new List<AppliedDiscounts>();
 }

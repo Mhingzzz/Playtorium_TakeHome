@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Text.Json.Serialization;
 
 namespace Domain;
 
@@ -13,5 +12,6 @@ public partial class Customers
 
     public int? Points { get; set; }
 
+    [JsonIgnore]  // This will prevent serialization of the Cart property
     public virtual ICollection<Cart> Cart { get; set; } = new List<Cart>();
 }

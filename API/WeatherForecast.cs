@@ -1,4 +1,4 @@
-namespace PlayToRium
+namespace API
 {
     public class WeatherForecast
     {

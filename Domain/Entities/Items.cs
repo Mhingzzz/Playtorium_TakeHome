@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Text.Json.Serialization;
 
 namespace Domain;
 
@@ -13,5 +12,6 @@ public partial class Items
 
     public decimal? Price { get; set; }
 
+    [JsonIgnore]
     public virtual ICollection<CartItems> CartItems { get; set; } = new List<CartItems>();
 }

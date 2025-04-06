@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Text.Json.Serialization;
 
 namespace Domain;
 
@@ -17,7 +16,9 @@ public partial class AppliedDiscounts
 
     public DateTime? AppliedAt { get; set; }
 
+    [JsonIgnore]
     public virtual DiscountCampaigns? Campaign { get; set; }
 
+    [JsonIgnore]
     public virtual Cart? Cart { get; set; }
 }
