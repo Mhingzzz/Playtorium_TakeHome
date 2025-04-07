@@ -5,12 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
-    public class DiscountCampaignRepository : IDiscountCampaignRepository
+    public class DiscountCampaignRepository : BaseRepository<DiscountCampaigns>, IDiscountCampaignRepository
     {
-        private readonly DataContext _dataContext;
-        public DiscountCampaignRepository(DataContext dataContext)
+        public DiscountCampaignRepository(DataContext dataContext) : base(dataContext)
         {
-            _dataContext = dataContext;
         }
 
         public async Task<List<DiscountCampaigns>> GetActiveCampaign()

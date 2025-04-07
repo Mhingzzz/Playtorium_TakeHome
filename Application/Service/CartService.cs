@@ -32,7 +32,7 @@ namespace Application.Service
 
                 };
 
-                await _cartRepository.CreateCart(newCart);
+                await _cartRepository.AddAsync(newCart);
                 return newCart;
             }
             catch (Exception ex)
