@@ -11,13 +11,7 @@ namespace Infrastructure.Repositories
         {
         }
 
-        public async Task<Customers> GetCustomerById(int id)
-        {
-            var result = await GetByIdAsync(id);
-            //var result = await _dataContext.Customers.FirstOrDefaultAsync(x => x.Id == id);
-            return result;
-        }
-
+        
         public async Task<Customers> UpdateCustomer(Customers customer)
         {
             var result = await UpdateAsync(customer);

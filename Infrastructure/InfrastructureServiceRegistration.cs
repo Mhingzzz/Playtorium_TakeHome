@@ -16,6 +16,7 @@ namespace Infrastructure
             services.AddScoped<IItemRepository, ItemRepository>();
             services.AddScoped<ICartRepository, CartRepository>();
             services.AddScoped<ICartItemRepository, CartItemRepository>();
+            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             var DataConnectionString = configuration.GetConnectionString("ptr_db");
             services.AddDbContext<DataContext>(option =>
             {

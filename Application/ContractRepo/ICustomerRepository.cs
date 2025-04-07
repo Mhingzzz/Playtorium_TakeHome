@@ -2,10 +2,8 @@
 
 namespace Application.ContractRepo
 {
-    public interface ICustomerRepository
+    public interface ICustomerRepository : IBaseRepository<Customers>
     {
 
-        Task<Customers> GetCustomerById(int id);
-        Task<Customers> UpdateCustomer(Customers customer);
     }
 }

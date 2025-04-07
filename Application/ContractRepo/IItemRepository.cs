@@ -7,12 +7,8 @@ using Domain;
 
 namespace Application.ContractRepo
 {
-    public interface IItemRepository
+    public interface IItemRepository : IBaseRepository<Items>
     {
-        Task<Items> GetItemById(int id);
-        Task<List<Items>> GetAllItems();
-        Task<Items> CreateItem(Items item);
-        Task<Items> UpdateItem(Items item);
-        Task<bool> DeleteItem(int id);
+        
     }
 }

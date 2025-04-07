@@ -2,7 +2,7 @@
 
 namespace Application.ContractRepo
 {
-    public interface ICartItemRepository
+    public interface ICartItemRepository : IBaseRepository<CartItems>
     {
 
     }

@@ -17,7 +17,7 @@ namespace Application.Service
         {
             try
             {
-                var customer = await _customerRepository.GetCustomerById(id);
+                var customer = await _customerRepository.GetByIdAsync(id);
 
                 return customer;
             }
@@ -30,14 +30,14 @@ namespace Application.Service
         {
             try
             {
-                var customer = await _customerRepository.GetCustomerById(id);
+                var customer = await _customerRepository.GetByIdAsync(id);
                 if (customer == null)
                 {
                     throw new Exception("Customer not found");
                 }
 
                 customer.Points += point;
-                await _customerRepository.UpdateCustomer(customer);
+                await _customerRepository.UpdateAsync(customer);
 
                 return customer;
             }

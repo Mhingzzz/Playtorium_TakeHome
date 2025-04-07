@@ -17,9 +17,7 @@ namespace Application.Service
         {
             try
             {
-                var Item = await _itemRepository.GetItemById(id);
-                
-
+                var Item = await _itemRepository.GetByIdAsync(id);
                 return Item;
             }
             catch (Exception ex)
@@ -28,23 +26,12 @@ namespace Application.Service
             }
         }   
         
-        public async Task<Items> AddItem(Items item)
-        {
-            try
-            {
-                var newItem = await _itemRepository.CreateItem(item);
-                return newItem;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"An error occurred while adding the Item: {ex.Message}");
-            }
-        }
+     
         public async Task<Items> UpdateItem(Items item)
         {
             try
             {
-                var updatedItem = await _itemRepository.UpdateItem(item);
+                var updatedItem = await _itemRepository.UpdateAsync(item);
                 return updatedItem;
             }
             catch (Exception ex)
@@ -56,7 +43,7 @@ namespace Application.Service
         {
             try
             {
-                var result = await _itemRepository.DeleteItem(id);
+                var result = await _itemRepository.DeleteById(id);
                 return result;
             }
             catch (Exception ex)
@@ -68,7 +55,7 @@ namespace Application.Service
         {
             try
             {
-                var items = await _itemRepository.GetAllItems();
+                var items = await _itemRepository.GetAllAsync();
                 return items;
             }
             catch (Exception ex)
@@ -80,7 +67,7 @@ namespace Application.Service
         {
             try
             {
-                var newItem = await _itemRepository.CreateItem(item);
+                var newItem = await _itemRepository.AddAsync(item);
                 return newItem;
             }
             catch (Exception ex)

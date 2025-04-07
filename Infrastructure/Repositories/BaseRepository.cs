@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
-    public abstract class BaseRepository<T> where T : class
+    public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
     {
         protected readonly DataContext _dataContext;
         protected readonly DbSet<T> _dbSet;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.ContractRepo
 {
-    public interface IDiscountCampaignRepository
+    public interface IDiscountCampaignRepository : IBaseRepository<DiscountCampaigns>
     {
         Task<List<DiscountCampaigns>> GetActiveCampaign();
     }
