@@ -12,6 +12,8 @@ public partial class DiscountCampaigns
 
     public string? Category { get; set; }
 
+    public string? ItemCategory { get; set; }
+
     public decimal? PointsCap { get; set; }
 
     public decimal? EveryXThb { get; set; }
@@ -19,7 +21,6 @@ public partial class DiscountCampaigns
     public decimal? DiscountYThb { get; set; }
 
     public bool? IsActive { get; set; }
-
     [JsonIgnore]
     public virtual ICollection<AppliedDiscounts> AppliedDiscounts { get; set; } = new List<AppliedDiscounts>();
 }

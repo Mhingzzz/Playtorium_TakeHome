@@ -11,7 +11,6 @@ public partial class Customers
     public string? Email { get; set; }
 
     public int? Points { get; set; }
-
-    [JsonIgnore]  // This will prevent serialization of the Cart property
+    [JsonIgnore]
     public virtual ICollection<Cart> Cart { get; set; } = new List<Cart>();
 }

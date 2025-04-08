@@ -32,9 +32,7 @@ public partial class DataContext : DbContext
 
             entity.ToTable("applied_discounts");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.AppliedAt)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp without time zone")
@@ -63,9 +61,7 @@ public partial class DataContext : DbContext
 
             entity.ToTable("cart");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CustomerId).HasColumnName("customer_id");
             entity.Property(e => e.Status)
                 .HasMaxLength(255)
@@ -86,9 +82,7 @@ public partial class DataContext : DbContext
 
             entity.ToTable("cart_items");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CartId).HasColumnName("cart_id");
             entity.Property(e => e.ItemId).HasColumnName("item_id");
             entity.Property(e => e.Quantity)
@@ -112,9 +106,7 @@ public partial class DataContext : DbContext
 
             entity.HasIndex(e => e.Email, "customers_email_key").IsUnique();
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Email)
                 .HasMaxLength(255)
                 .HasColumnName("email");
@@ -132,9 +124,7 @@ public partial class DataContext : DbContext
 
             entity.ToTable("discount_campaigns");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CampaignType)
                 .HasMaxLength(255)
                 .HasColumnName("campaign_type");
@@ -153,6 +143,9 @@ public partial class DataContext : DbContext
             entity.Property(e => e.IsActive)
                 .HasDefaultValue(true)
                 .HasColumnName("is_active");
+            entity.Property(e => e.ItemCategory)
+                .HasMaxLength(255)
+                .HasColumnName("item_category");
             entity.Property(e => e.PointsCap)
                 .HasPrecision(10, 2)
                 .HasColumnName("points_cap");
@@ -164,9 +157,7 @@ public partial class DataContext : DbContext
 
             entity.ToTable("items");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Category)
                 .HasMaxLength(255)
                 .HasColumnName("category");

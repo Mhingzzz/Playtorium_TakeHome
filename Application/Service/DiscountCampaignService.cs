@@ -38,6 +38,7 @@ namespace Application.Service
                 throw new Exception($"An error occurred while retrieving active campaigns: {ex.Message}");
             }
         }
+
         
 
     }

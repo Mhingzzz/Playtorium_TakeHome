@@ -10,6 +10,6 @@ namespace Application.Interfaces
     public interface ICartService
     {
        Task<Cart> InitCart(int customerId);
-       Task<List<Cart>> GetCartByCustomerId(int customerId);
+       Task<Cart?> GetCartByCustomerIdAsync(int customerId);
    }
 }

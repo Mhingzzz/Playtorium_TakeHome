@@ -14,6 +14,7 @@ public partial class CartItems
 
     [JsonIgnore]
     public virtual Cart? Cart { get; set; }
+
     [JsonIgnore]
     public virtual Items? Item { get; set; }
 }

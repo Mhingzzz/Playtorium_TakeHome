@@ -39,6 +39,12 @@ namespace Infrastructure.Repositories
             return entity;
         }
 
+        public virtual async Task<List<T>> AddRangeAsync(List<T> entities)
+        {
+            await _dbSet.AddRangeAsync(entities);
+            await _dataContext.SaveChangesAsync();  // Save changes to the database
+            return entities;
+        }
         public virtual async Task<T> UpdateAsync(T entity)
         {
             _dbSet.Update(entity);

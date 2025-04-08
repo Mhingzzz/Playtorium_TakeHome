@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
-    public class CartRepository : BaseRepository<Cart> ,ICartRepository
+    public class CartRepository : BaseRepository<Cart>, ICartRepository
     {
 
         public CartRepository(DataContext dataContext) : base(dataContext)
@@ -13,7 +13,7 @@ namespace Infrastructure.Repositories
         }
         public async Task<List<Cart>> GetCartByCustomerId(int customerId)
         {
-            var result = await _dataContext.Cart.Where(x => x.CustomerId == customerId).AsNoTracking().ToListAsync();
+            var result = await _dataContext.Cart.Where(x => x.CustomerId == customerId).ToListAsync();
             return result;
         }
 

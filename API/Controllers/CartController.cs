@@ -36,17 +36,15 @@ namespace API.Controllers
         [HttpGet("GetCartByCustomerId")]
         public async Task<IActionResult> GetCartByCustomerId(int customerId)
         {
-            var response = new BaseHttpResponse<List<Cart?>>();
+            var response = new BaseHttpResponse<Cart?>();
             if (customerId <= 0)
             {
                 return BadRequest("Invalid customer ID.");
             }
 
-            var result = await _cartService.GetCartByCustomerId(customerId);
+            var result = await _cartService.GetCartByCustomerIdAsync(customerId);
 
             response.SetSuccess(result, "GetCartByCustomerId", "200");
-
-
 
             return Ok(response);
         }

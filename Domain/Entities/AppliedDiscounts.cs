@@ -18,7 +18,6 @@ public partial class AppliedDiscounts
 
     [JsonIgnore]
     public virtual DiscountCampaigns? Campaign { get; set; }
-
     [JsonIgnore]
     public virtual Cart? Cart { get; set; }
 }

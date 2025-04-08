@@ -5,5 +5,5 @@ public interface IBaseRepository<T> where T : class
     Task<T> UpdateAsync(T entity);
     Task<bool> DeleteById(int id);
     Task<List<T>> GetAllAsync();
-
+    Task<List<T>> AddRangeAsync(List<T> entities);
 }

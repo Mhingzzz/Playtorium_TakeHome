@@ -32,8 +32,8 @@ namespace Application.Service
 
                 };
 
-                await _cartRepository.AddAsync(newCart);
-                return newCart;
+                var result = await _cartRepository.AddAsync(newCart);
+                return result;
             }
             catch (Exception ex)
             {
@@ -41,13 +41,13 @@ namespace Application.Service
             }
         }
 
-        public async Task<List<Cart>> GetCartByCustomerId(int customerId)
+        public async Task<Cart?> GetCartByCustomerIdAsync(int customerId)
         {
             try
             {
                 var cartList = await _cartRepository.GetCartByCustomerId(customerId);
-                // var activeCart = cartList.Where(x => x.Status == CartStatus.Active.ToString()).ToList();
-                return cartList;
+                var activeCart = cartList.FirstOrDefault(x => x.Status == CartStatus.Active.ToString());
+                return activeCart;
             }
             catch (Exception ex)
             {
