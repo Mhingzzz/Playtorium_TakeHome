@@ -74,6 +74,8 @@ namespace Application.Service
                 decimal? discountAmount = 0;
                 decimal? totalPrice = cart.TotalPrice;
                 decimal? totalDiscount = 0;
+
+                var discountApplied = new List<AppliedDiscountInfo>();
                 foreach (var discountCategory in orderedDiscounts)
                 {
                     // Coupon -> OnTop -> Seasonal
@@ -97,25 +99,36 @@ namespace Application.Service
                             {
                                 discountAmount = totalPrice * (discountCampaign.DiscountValue / 100);
                             }
+                            discountApplied.Add(new AppliedDiscountInfo
+                            {
+                                Type = discountCampaign.CampaignType,
+                                Amount = discountAmount ?? 0
+                            });
                             break;
                         case DiscountCategoryType.OnTop:
                             if (discountCampaign.CampaignType == CampaignType.PercentageByItemCategory.ToString())
                             {
-                                var category = discountCampaign.Category;
+                                var category = discountCampaign.ItemCategory;
                                 var matchingItems = cartItems.Where(x => x.Item != null && x.Item.Category == category).ToList();
                                 discountAmount = matchingItems.Sum(x => x.Item.Price * x.Quantity) * ((discountCampaign.DiscountValue ?? 0) / 100);
                             }
                             else if (discountCampaign.CampaignType == CampaignType.DiscountByPoints.ToString())
                             {
                                 decimal maxDiscount = (decimal)(totalPrice * discountCampaign.PointsCap);
-                                //    decimal pointsValue = cart.Customer != null
-                                //        ? Math.Min(cart.Customer.Points, maxDiscount)
-                                //;
-                                int pointsValue = Math.Min((int)customer.Points, (int)maxDiscount);
+                                decimal pointsValue = cart.Customer != null
+                                    ? Math.Min((decimal)cart.Customer.Points, maxDiscount) : 0
+
+                                ;
+                                
                                 discountAmount = pointsValue;
                                 customer.Points -= (int)pointsValue;
                                 await _customerRepository.UpdateAsync(customer);
                             }
+                            discountApplied.Add(new AppliedDiscountInfo
+                            {
+                                Type = discountCampaign.CampaignType,
+                                Amount = discountAmount ?? 0
+                            });
                             break;
 
                         case DiscountCategoryType.Seasonal:
@@ -126,10 +139,16 @@ namespace Application.Service
                                 int unit = (int?)(totalPrice / x) ?? 0;
                                 discountAmount = unit * y;
                             }
+                            discountApplied.Add(new AppliedDiscountInfo
+                            {
+                                Type = discountCampaign.CampaignType,
+                                Amount = discountAmount ?? 0
+                            });
                             break;
                     }
                     totalDiscount += discountAmount;
                     totalPrice -= discountAmount;
+                    discountAmount = 0;
                     await _appliedDiscountRepository.AddAsync(new AppliedDiscounts
                     {
                         CartId = request.CartId,
@@ -145,12 +164,10 @@ namespace Application.Service
                 {
                     Cart = cart,
                     DiscountTotal = totalDiscount ?? 0,
-                    DiscountsApplied = [.. request.DiscountCategoryRequest.Select(x => new AppliedDiscountInfo
-                    {
-                       Type = x.DiscountCategoryType.ToString(),
-                       Amount = discountAmount ?? 0
-                    })]
+                    DiscountsApplied = discountApplied
                 };
+
+
                 return result;
             }
             catch (Exception ex)
