@@ -48,10 +48,12 @@ public partial class DataContext : DbContext
 
             entity.HasOne(d => d.Campaign).WithMany(p => p.AppliedDiscounts)
                 .HasForeignKey(d => d.CampaignId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("applied_discounts_campaign_id_fkey");
 
             entity.HasOne(d => d.Cart).WithMany(p => p.AppliedDiscounts)
                 .HasForeignKey(d => d.CartId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("applied_discounts_cart_id_fkey");
         });
 
@@ -73,6 +75,7 @@ public partial class DataContext : DbContext
 
             entity.HasOne(d => d.Customer).WithMany(p => p.Cart)
                 .HasForeignKey(d => d.CustomerId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("cart_customer_id_fkey");
         });
 
@@ -91,10 +94,12 @@ public partial class DataContext : DbContext
 
             entity.HasOne(d => d.Cart).WithMany(p => p.CartItems)
                 .HasForeignKey(d => d.CartId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("cart_items_cart_id_fkey");
 
             entity.HasOne(d => d.Item).WithMany(p => p.CartItems)
                 .HasForeignKey(d => d.ItemId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("cart_items_item_id_fkey");
         });
 
@@ -166,6 +171,7 @@ public partial class DataContext : DbContext
                 .HasColumnName("name");
             entity.Property(e => e.Price)
                 .HasPrecision(10, 2)
+                .HasDefaultValueSql("0")
                 .HasColumnName("price");
         });
 

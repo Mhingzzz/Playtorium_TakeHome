@@ -27,50 +27,48 @@ namespace Test.Application
         }
 
         [Fact]
-        public async Task AddItemToCart_ShouldAddItemsAndUpdateCartTotal()
+        public async Task AddItemToCart_ShouldAddItemAndUpdateCartTotal()
         {
             // Arrange
             var request = new AddItemToCartRequest
             {
                 CartId = 1,
-                ItemId = new[] { 1, 2 },
+                ItemId = 1, // Changed from int[] to int to match the current implementation
                 Quantity = 2
             };
 
             var cart = new Cart { Id = 1, TotalPrice = 0 };
-            var item1 = new Domain.Items { Id = 1, Price = 100 };
-            var item2 = new Domain.Items { Id = 2, Price = 200 };
+            var item = new Items { Id = 1, Price = 100 };
 
-            var expectedCartItems = new List<CartItems>
-            {
-                new CartItems { CartId = 1, ItemId = 1, Quantity = 2 },
-                new CartItems { CartId = 1, ItemId = 2, Quantity = 2 }
+            var expectedCartItem = new CartItems 
+            { 
+                CartId = 1, 
+                ItemId = 1, 
+                Quantity = 2 
             };
 
             _cartRepositoryMock.Setup(x => x.GetByIdAsync(request.CartId))
                 .ReturnsAsync(cart);
             
-            _itemRepositoryMock.Setup(x => x.GetByIdAsync(1))
-                .ReturnsAsync(item1);
+            _itemRepositoryMock.Setup(x => x.GetByIdAsync(request.ItemId))
+                .ReturnsAsync(item);
             
-            _itemRepositoryMock.Setup(x => x.GetByIdAsync(2))
-                .ReturnsAsync(item2);
-            
-            _cartItemRepositoryMock.Setup(x => x.AddRangeAsync(It.IsAny<List<CartItems>>()))
-                .ReturnsAsync(expectedCartItems);
+            _cartItemRepositoryMock.Setup(x => x.AddAsync(It.IsAny<CartItems>()))
+                .ReturnsAsync(expectedCartItem);
 
             // Act
             var result = await _cartItemService.AddItemToCart(request);
 
             // Assert
-            Assert.Equal(2, result.Count);
-            Assert.Equal(600, cart.TotalPrice); // (100 + 200) * 2
+            Assert.Equal(request.ItemId, result.ItemId);
+            Assert.Equal(request.Quantity, result.Quantity);
+            Assert.Equal(200, cart.TotalPrice); // 100 * 2
             
             // Verify repository calls
             _cartRepositoryMock.Verify(x => x.GetByIdAsync(request.CartId), Times.Once);
-            _itemRepositoryMock.Verify(x => x.GetByIdAsync(It.IsAny<int>()), Times.Exactly(2));
+            _itemRepositoryMock.Verify(x => x.GetByIdAsync(request.ItemId), Times.Once);
             _cartRepositoryMock.Verify(x => x.UpdateAsync(cart), Times.Once);
-            _cartItemRepositoryMock.Verify(x => x.AddRangeAsync(It.IsAny<List<CartItems>>()), Times.Once);
+            _cartItemRepositoryMock.Verify(x => x.AddAsync(It.IsAny<CartItems>()), Times.Once);
         }
 
         [Fact]

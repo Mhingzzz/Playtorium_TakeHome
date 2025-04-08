@@ -1,4 +1,6 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Domain;
 
@@ -6,9 +8,9 @@ public partial class AppliedDiscounts
 {
     public int Id { get; set; }
 
-    public int? CartId { get; set; }
+    public int CartId { get; set; }
 
-    public int? CampaignId { get; set; }
+    public int CampaignId { get; set; }
 
     public decimal? DiscountAmount { get; set; }
 
@@ -17,7 +19,8 @@ public partial class AppliedDiscounts
     public DateTime? AppliedAt { get; set; }
 
     [JsonIgnore]
-    public virtual DiscountCampaigns? Campaign { get; set; }
+    public virtual DiscountCampaigns Campaign { get; set; } = null!;
+
     [JsonIgnore]
-    public virtual Cart? Cart { get; set; }
+    public virtual Cart Cart { get; set; } = null!;
 }

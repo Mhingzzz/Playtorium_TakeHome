@@ -1,5 +1,4 @@
 ﻿using Application.Interfaces;
-using Application.Service;
 using Moq;
 
 namespace Test.Application
@@ -18,7 +17,7 @@ namespace Test.Application
             // Arrange
             discountService.Setup(x => x.ApplyFixedDiscount(It.IsAny<decimal>(), It.IsAny<decimal>()))
                 .Returns(800);
-            
+
             // Act
             var result = discountService.Object.ApplyFixedDiscount(1000, 200);
 

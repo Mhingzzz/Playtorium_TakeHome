@@ -1,6 +1,7 @@
 using Application.ContractRepo;
 using Domain;
 using Infrastructure.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
@@ -11,6 +12,11 @@ namespace Infrastructure.Repositories
         {
         }
 
-        
+        public async Task<bool> IsAlreadyApplyDiscount(int cartId)
+        {
+            var appliedDiscount = await _dataContext.AppliedDiscounts
+                .FirstOrDefaultAsync(x => x.CartId == cartId);
+            return appliedDiscount != null;
+        }
     }
 }

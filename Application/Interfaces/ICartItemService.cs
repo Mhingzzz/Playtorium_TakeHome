@@ -14,5 +14,6 @@ namespace Application.Interfaces
         Task<CartItems> UpdateCartItem(int cartItemId, int quantity);
         
         Task<List<CartItems>> GetCartItemsByCartId(int cartId);
+        
     }
 }

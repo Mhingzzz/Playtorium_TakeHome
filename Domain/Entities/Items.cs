@@ -11,7 +11,6 @@ public partial class Items
     public string? Category { get; set; }
 
     public decimal? Price { get; set; }
-
     [JsonIgnore]
     public virtual ICollection<CartItems> CartItems { get; set; } = new List<CartItems>();
 }

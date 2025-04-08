@@ -9,10 +9,12 @@ namespace API.Controllers
     public class DiscountController : ControllerBase
     {
         private readonly IDiscountCampaignService _discountCampaignService;
-
-        public DiscountController(IDiscountCampaignService discountCampaignService)
+        private readonly IAppliedDiscountService _appliedDiscountService;
+        public DiscountController(IDiscountCampaignService discountCampaignService, IAppliedDiscountService appliedDiscountService)
         {
+            _appliedDiscountService = appliedDiscountService;
             _discountCampaignService = discountCampaignService;
+
         }
 
         [HttpPost("apply-fixed-discount")]
@@ -30,10 +32,18 @@ namespace API.Controllers
         [HttpGet("GetAvaibleDiscount")]
         public async Task<IActionResult> GetAvaibleDiscount()
         {
+
             var result = await _discountCampaignService.GetActiveCampaign();
             return Ok(result);
         }
 
+
+        [HttpPost("ApplyDiscount")]
+        public async Task<IActionResult> ApplyDiscount(AppliedDiscountRequestDTO request)
+        {
+            var result = await _appliedDiscountService.AppliedDiscount(request);
+            return Ok(result);
+        }
     }
 
 }
